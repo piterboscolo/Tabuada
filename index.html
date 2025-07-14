@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabuada do 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .pergunta {
+            font-size: 1.5rem;
+            color: #34495e;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f7f9fc;
+            border-radius: 0.5rem;
+        }
+
+        .input-container {
+            margin: 1.5rem 0;
+        }
+
+        input {
+            width: 150px;
+            padding: 0.8rem;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 0.5rem;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #6e8efb;
+        }
+
+        button {
+            background: #6e8efb;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            margin: 0 0.5rem;
+        }
+
+        button:hover {
+            background: #5c7cfa;
+            transform: translateY(-2px);
+        }
+
+        #iniciarBtn {
+            background: #4CAF50;
+        }
+
+        #iniciarBtn:hover {
+            background: #45a049;
+        }
+
+        .feedback {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .correct {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .stats {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 0.5rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6e8efb;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .resumo-erros {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 0.5rem;
+            text-align: left;
+        }
+
+        .resumo-erros h3 {
+            color: #856404;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .resumo-erros p {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-bottom: 1px solid #ffeeba;
+            white-space: pre-line;
+        }
+
+        .resumo-erros p:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .pergunta {
+                font-size: 1.2rem;
+            }
+
+            input {
+                width: 120px;
+                font-size: 1rem;
+            }
+
+            button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tabuada do 3</h1>
+        <div id="pergunta" class="pergunta hidden"></div>
+        <div class="input-container hidden" id="inputContainer">
+            <input type="number" id="resposta" placeholder="Sua resposta">
+        </div>
+        <div class="game-controls">
+            <button id="iniciarBtn" onclick="iniciarJogo()">Iniciar Jogo</button>
+            <button id="verificarBtn" onclick="verificarResposta()" class="hidden">Verificar</button>
+        </div>
+        <div id="feedback" class="feedback"></div>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="acertos">0</div>
+                <div class="stat-label">Acertos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="total">0</div>
+                <div class="stat-label">Total</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="porcentagem">0</div>
+                <div class="stat-label">Porcentagem</div>
+            </div>
+        </div>
+    </div>
+    <script src="tabuada.js"></script>
+</body>
+</html>
