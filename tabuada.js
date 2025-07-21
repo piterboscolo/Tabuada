@@ -5,6 +5,7 @@ let jogoIniciado = false;
 let questoesErradas = [];
 let modoRevisao = false;
 let registroErros = [];
+let tabuadaAtual = 1;
 
 // Função para iniciar ou reiniciar o jogo
 function iniciarJogo() {
@@ -16,6 +17,9 @@ function iniciarJogo() {
     questoesErradas = [];
     registroErros = [];
     modoRevisao = false;
+    
+    // Obtém a tabuada selecionada
+    tabuadaAtual = parseInt(document.getElementById('tabuadaSelector').value);
     
     // Atualiza a interface
     document.getElementById('acertos').textContent = '0';
@@ -31,6 +35,9 @@ function iniciarJogo() {
     
     // Muda o texto do botão
     document.getElementById('iniciarBtn').textContent = 'Reiniciar';
+    
+    // Desabilita o seletor de tabuada durante o jogo
+    document.getElementById('tabuadaSelector').disabled = true;
     
     // Gera a primeira pergunta
     gerarNovaPergunta();
@@ -61,7 +68,7 @@ function gerarNovaPergunta() {
     }
 
     document.getElementById('pergunta').innerHTML = 
-        `<h2>Quanto é 3 x ${numeroAtual}?</h2>`;
+        `<h2>Quanto é ${tabuadaAtual} x ${numeroAtual}?</h2>`;
     document.getElementById('resposta').value = '';
     document.getElementById('resposta').focus();
 }
@@ -78,7 +85,7 @@ function verificarResposta() {
         return;
     }
     
-    const respostaCorreta = 3 * numeroAtual;
+    const respostaCorreta = tabuadaAtual * numeroAtual;
 
     if (respostaUsuario === respostaCorreta) {
         acertos++;
@@ -102,7 +109,7 @@ function verificarResposta() {
                 questoesErradas.push(numeroAtual);
                 // Registra o erro
                 registroErros.push({
-                    pergunta: `3 x ${numeroAtual}`,
+                    pergunta: `${tabuadaAtual} x ${numeroAtual}`,
                     respostaCorreta: respostaCorreta,
                     respostaUsuario: respostaUsuario
                 });
@@ -144,21 +151,23 @@ function finalizarJogo() {
     document.getElementById('pergunta').classList.add('hidden');
     document.getElementById('inputContainer').classList.add('hidden');
     document.getElementById('verificarBtn').classList.add('hidden');
+    document.getElementById('tabuadaSelector').disabled = false;
     
-    let mensagemFinal = '🎉 Parabéns! Você completou a tabuada do 3!';
+    let mensagemFinal = `🎉 Parabéns! Você completou a tabuada do ${tabuadaAtual}!`;
     
     if (registroErros.length > 0) {
         mensagemFinal += '\n\n' + mostrarResumoErros();
+    } else {
+        mensagemFinal += '\n\nVocê não cometeu nenhum erro! 🌟';
     }
     
     document.getElementById('feedback').innerHTML = mensagemFinal;
     document.getElementById('feedback').className = 'feedback correct';
-    document.getElementById('iniciarBtn').textContent = 'Jogar Novamente';
 }
 
-// Adiciona evento de tecla Enter para verificar resposta
+// Adiciona evento para tecla Enter
 document.getElementById('resposta').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter' && jogoIniciado) {
+    if (e.key === 'Enter') {
         verificarResposta();
     }
 });
