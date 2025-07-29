@@ -36,8 +36,7 @@ function iniciarJogo() {
     // Muda o texto do botão
     document.getElementById('iniciarBtn').textContent = 'Reiniciar';
     
-    // Desabilita o seletor de tabuada durante o jogo
-    document.getElementById('tabuadaSelector').disabled = true;
+    // Permite trocar de tabuada a qualquer momento
     
     // Gera a primeira pergunta
     gerarNovaPergunta();
@@ -47,6 +46,9 @@ function iniciarJogo() {
 // Função para gerar nova pergunta
 function gerarNovaPergunta() {
     if (!jogoIniciado) return;
+    
+    // Atualiza a tabuada atual com base no seletor
+    tabuadaAtual = parseInt(document.getElementById('tabuadaSelector').value);
     
     if (modoRevisao) {
         if (questoesErradas.length === 0) {
