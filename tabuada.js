@@ -54,7 +54,7 @@ function gerarNovaPergunta() {
             return;
         }
         numeroAtual = questoesErradas[0];
-    } else if (numeroAtual > 10) {
+    } else if (numeroAtual >= 10) {
         if (questoesErradas.length > 0) {
             modoRevisao = true;
             document.getElementById('feedback').innerHTML = 
@@ -164,6 +164,13 @@ function finalizarJogo() {
     document.getElementById('feedback').innerHTML = mensagemFinal;
     document.getElementById('feedback').className = 'feedback correct';
 }
+
+// Limita o input para no máximo 2 dígitos
+document.getElementById('resposta').addEventListener('input', function(e) {
+    if (this.value.length > 2) {
+        this.value = this.value.slice(0, 2);
+    }
+});
 
 // Adiciona evento para tecla Enter
 document.getElementById('resposta').addEventListener('keypress', function(e) {
