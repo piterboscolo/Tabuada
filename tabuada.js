@@ -38,8 +38,9 @@ function iniciarJogo() {
     // Muda o texto do botão
     document.getElementById('iniciarBtn').textContent = 'Reiniciar';
     
-    // Esconde o botão de mudar tabuada
-    document.getElementById('mudarTabuadaBtn').classList.add('hidden');
+    // Configura a UI inicial
+    document.getElementById('tabuadaSelector').classList.add('hidden');
+    document.getElementById('novaTabuadaBtn').classList.remove('hidden');
     
     // Gera a primeira pergunta
     gerarNovaPergunta();
@@ -58,14 +59,23 @@ function verificarMudancaTabuada() {
     }
 }
 
+// Função para mostrar o seletor de tabuada
+function mostrarSeletorTabuada() {
+    // Mostra o seletor e esconde o botão de nova tabuada
+    document.getElementById('tabuadaSelector').classList.remove('hidden');
+    document.getElementById('novaTabuadaBtn').classList.add('hidden');
+    document.getElementById('tabuadaSelector').focus();
+}
+
 // Função para mudar a tabuada
 function mudarTabuada() {
     const tabuadaSelecionada = parseInt(document.getElementById('tabuadaSelector').value);
     tabuadaAtual = tabuadaSelecionada;
     tabuadaOriginal = tabuadaAtual;
     
-    // Esconde o botão
-    document.getElementById('mudarTabuadaBtn').classList.remove('visible');
+    // Esconde o seletor e mostra o botão de nova tabuada
+    document.getElementById('tabuadaSelector').classList.add('hidden');
+    document.getElementById('novaTabuadaBtn').classList.remove('hidden');
     
     // Gera uma nova pergunta com a nova tabuada
     gerarNovaPergunta();

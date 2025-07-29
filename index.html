@@ -89,6 +89,10 @@
             gap: 1rem;
             margin: 1.5rem 0;
         }
+        
+        .tabuada-selector.hidden {
+            display: none;
+        }
 
         .tabuada-selector {
             padding: 1rem 1.25rem;
@@ -438,6 +442,7 @@
         <div class="game-controls">
             <button id="iniciarBtn" onclick="iniciarJogo()">Iniciar</button>
             <button id="verificarBtn" onclick="verificarResposta()" class="hidden">Verificar</button>
+            <button id="novaTabuadaBtn" onclick="mostrarSeletorTabuada()" class="hidden">Nova Tabuada</button>
         </div>
 
         <div id="feedback" class="feedback"></div>
