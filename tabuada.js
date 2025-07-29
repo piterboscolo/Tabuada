@@ -6,6 +6,7 @@ let questoesErradas = [];
 let modoRevisao = false;
 let registroErros = [];
 let tabuadaAtual = 1;
+let tabuadaOriginal = 1;
 
 // Função para iniciar ou reiniciar o jogo
 function iniciarJogo() {
@@ -13,13 +14,14 @@ function iniciarJogo() {
     acertos = 0;
     totalPerguntas = 0;
     jogoIniciado = true;
-    numeroAtual = 0;
+    numeroAtual = 1;
     questoesErradas = [];
     registroErros = [];
     modoRevisao = false;
     
     // Obtém a tabuada selecionada
     tabuadaAtual = parseInt(document.getElementById('tabuadaSelector').value);
+    tabuadaOriginal = tabuadaAtual;
     
     // Atualiza a interface
     document.getElementById('acertos').textContent = '0';
@@ -36,12 +38,44 @@ function iniciarJogo() {
     // Muda o texto do botão
     document.getElementById('iniciarBtn').textContent = 'Reiniciar';
     
-    // Permite trocar de tabuada a qualquer momento
+    // Esconde o botão de mudar tabuada
+    document.getElementById('mudarTabuadaBtn').classList.add('hidden');
     
     // Gera a primeira pergunta
     gerarNovaPergunta();
     document.getElementById('resposta').focus();
 }
+
+// Função para verificar se a tabuada foi alterada
+function verificarMudancaTabuada() {
+    const mudarBtn = document.getElementById('mudarTabuadaBtn');
+    const tabuadaAtual = parseInt(document.getElementById('tabuadaSelector').value);
+    
+    if (jogoIniciado && tabuadaAtual !== tabuadaOriginal) {
+        mudarBtn.classList.add('visible');
+    } else {
+        mudarBtn.classList.remove('visible');
+    }
+}
+
+// Função para mudar a tabuada
+function mudarTabuada() {
+    const tabuadaSelecionada = parseInt(document.getElementById('tabuadaSelector').value);
+    tabuadaAtual = tabuadaSelecionada;
+    tabuadaOriginal = tabuadaAtual;
+    
+    // Esconde o botão
+    document.getElementById('mudarTabuadaBtn').classList.remove('visible');
+    
+    // Gera uma nova pergunta com a nova tabuada
+    gerarNovaPergunta();
+}
+
+// Adiciona evento para mudança na seleção da tabuada
+document.getElementById('tabuadaSelector').addEventListener('change', verificarMudancaTabuada);
+
+// Adiciona evento para o botão de mudar tabuada
+document.getElementById('mudarTabuadaBtn').addEventListener('click', mudarTabuada);
 
 // Função para gerar nova pergunta
 function gerarNovaPergunta() {

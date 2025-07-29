@@ -83,8 +83,14 @@
             border-radius: 2px;
         }
 
-        .tabuada-selector {
+        .tabuada-selector-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             margin: 1.5rem 0;
+        }
+
+        .tabuada-selector {
             padding: 1rem 1.25rem;
             font-size: 1.1rem;
             border: 2px solid var(--light-gray);
@@ -149,6 +155,33 @@
         input::placeholder {
             color: #cbd5e1;
             font-weight: normal;
+        }
+
+        .mudar-tabuada-btn {
+            display: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            background: var(--primary);
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        
+        .mudar-tabuada-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .mudar-tabuada-btn:active {
+            transform: translateY(0);
+        }
+        
+        .mudar-tabuada-btn.visible {
+            display: inline-block;
         }
 
         button {
@@ -381,17 +414,20 @@
     <div class="container">
         <h1>Jogo da Tabuada</h1>
         
-        <select id="tabuadaSelector" class="tabuada-selector">
-            <option value="1">Tabuada do 1</option>
-            <option value="2">Tabuada do 2</option>
-            <option value="3">Tabuada do 3</option>
-            <option value="4">Tabuada do 4</option>
-            <option value="5">Tabuada do 5</option>
-            <option value="6">Tabuada do 6</option>
-            <option value="7">Tabuada do 7</option>
-            <option value="8">Tabuada do 8</option>
-            <option value="9">Tabuada do 9</option>
-        </select>
+        <div class="tabuada-selector-container">
+            <select id="tabuadaSelector" class="tabuada-selector">
+                <option value="1">Tabuada do 1</option>
+                <option value="2">Tabuada do 2</option>
+                <option value="3">Tabuada do 3</option>
+                <option value="4">Tabuada do 4</option>
+                <option value="5">Tabuada do 5</option>
+                <option value="6">Tabuada do 6</option>
+                <option value="7">Tabuada do 7</option>
+                <option value="8">Tabuada do 8</option>
+                <option value="9">Tabuada do 9</option>
+            </select>
+            <button id="mudarTabuadaBtn" class="mudar-tabuada-btn hidden">Mudar Tabuada</button>
+        </div>
 
         <div id="pergunta" class="pergunta hidden"></div>
 
