@@ -98,11 +98,24 @@ function verificarResposta() {
             questoesErradas.shift();
         } else {
             numeroAtual++;
+            totalPerguntas++;
         }
+        
+        // Atualiza as estatísticas
+        atualizarEstatisticas();
+        
+        // Gera nova pergunta após 1.5 segundos
+        setTimeout(gerarNovaPergunta, 1500);
     } else {
         document.getElementById('feedback').innerHTML = 
             `❌ Ops! A resposta correta é ${respostaCorreta}`;
         document.getElementById('feedback').className = 'feedback incorrect';
+        
+        // Rola a tela até o campo de resposta
+        document.getElementById('resposta').scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'center'
+        });
         
         if (!modoRevisao) {
             if (!questoesErradas.includes(numeroAtual)) {
@@ -114,20 +127,29 @@ function verificarResposta() {
                     respostaUsuario: respostaUsuario
                 });
             }
-            numeroAtual++;
+            
+            // Atualiza as estatísticas
+            totalPerguntas++;
+            atualizarEstatisticas();
+            
+            // Passa para o próximo número após 1.5 segundos
+            setTimeout(() => {
+                numeroAtual++;
+                gerarNovaPergunta();
+            }, 1500);
+        } else {
+            // Em modo revisão, apenas gera nova pergunta após 1.5 segundos
+            setTimeout(gerarNovaPergunta, 1500);
         }
     }
+}
 
-    if (!modoRevisao) totalPerguntas++;
-
-    // Atualiza as estatísticas
+// Função para atualizar as estatísticas na tela
+function atualizarEstatisticas() {
     document.getElementById('acertos').textContent = acertos;
     document.getElementById('total').textContent = totalPerguntas;
-    document.getElementById('porcentagem').textContent = 
-        ((acertos / totalPerguntas) * 100).toFixed(1);
-
-    // Gera nova pergunta após 1.5 segundos
-    setTimeout(gerarNovaPergunta, 1500);
+    const porcentagem = totalPerguntas > 0 ? ((acertos / totalPerguntas) * 100).toFixed(1) : '0';
+    document.getElementById('porcentagem').textContent = porcentagem;
 }
 
 // Função para mostrar o resumo dos erros
